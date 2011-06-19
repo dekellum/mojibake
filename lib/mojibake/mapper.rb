@@ -64,7 +64,7 @@ module MojiBake
         h[moji_8] = c if @map_iso_8859_1
 
         # Mis-interpret as Windows-1252, and encode back to UTF-8
-        moji_w = c.encode( UTF8, W252 )
+        moji_w = c.encode( UTF8, W252, :undef => :replace )
         h[moji_w] = c if @map_windows_1252
 
         if @map_permutations
