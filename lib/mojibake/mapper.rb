@@ -98,7 +98,7 @@ module MojiBake
     # A Regexp that will match any of the mojibake sequences, as
     # found in hash.keys.
     def regexp
-      @regex ||= Regexp.new( tree_flatten( char_tree( hash.keys ) ) )
+      @regexp ||= Regexp.new( tree_flatten( char_tree( self.hash.keys ) ) )
     end
 
     # Recover original characters from input using regexp, recursively.
@@ -132,7 +132,7 @@ module MojiBake
           o << ')' unless v.length == 1
         end
         o }.join( '|' ).force_encoding( "UTF-8" )
-      #FIXME: Join looses encoding, jruby bug?
+      #FIXME: Join looses encoding so force, jruby bug?
     end
 
     # Unicode hex dump of codepoints
