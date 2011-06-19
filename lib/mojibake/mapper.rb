@@ -12,9 +12,8 @@ module MojiBake
     # RIGHT DOUBLE QUOTATION MARK. These are the most common problem
     # chars in English and probably most latin languages.
     HIGH_ORDER_CHARS =
-      ( 0x80..0xFF ).
+      ( ( 0x80..0xFF ).to_a - [ 0x81, 0x8D, 0x8F, 0x90, 0x9D ] ).
       map    { |i| i.chr( W252 ).encode( UTF8 ) }.
-      reject { |c| c == "\ufffd" }.
       sort
 
     # Additional Unicode characters of mojibake issue, like alt
