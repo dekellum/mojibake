@@ -1,5 +1,6 @@
-#!/opt/bin/jruby --1.9
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
+#.hashdot.args.pre = --1.9
 #.hashdot.profile += jruby-shortlived
 
 #--
