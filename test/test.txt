@@ -1,0 +1,12 @@
+-*- coding: utf-8 -*-
+Source: http://en.wikipedia.org/wiki/Mojibake
+
+== English ==
+
+Mojibake in English texts generally occurs in punctuation, such as em
+dashes (—), en dashes (–), and curly quotes (“, ”), but rarely in
+character text, since most encodings agree with ASCII on the encoding
+of the English alphabet. For example, the pound sign "£" will appear
+as "Â£" if it was encoded by the sender as UTF-8 but interpreted by
+the recipient as CP1252 or ISO 8859-1. If iterated, this can lead to
+"Ã‚Â£", "Ãƒâ€šÃ‚Â£", etc.

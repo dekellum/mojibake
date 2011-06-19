@@ -1,0 +1,7 @@
+Manifest.txt
+bin/mojibake
+lib/mojibake/base.rb
+lib/mojibake.rb
+lib/mojibake/mapper.rb
+test/test.txt
+test/test_mojibake.rb

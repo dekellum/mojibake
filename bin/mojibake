@@ -1,0 +1,54 @@
+#!/opt/bin/jruby --1.9
+# -*- coding: utf-8 -*-
+
+$LOAD_PATH.unshift File.join( File.dirname( __FILE__ ), "..", "lib" )
+
+require 'mojibake'
+require 'optparse'
+
+module Script
+
+  mapper = MojiBake::Mapper.new
+
+  OptionParser.new do |opts|
+    opts.banner = "Usage: mojibake [options] [InputFile]"
+    opts.on( "-v", "--version", "Display version and exit" ) do
+      puts "mojibake: #{MojiBake::VERSION}"
+      exit 1
+    end
+    opts.on( "--no-windows-1252",
+             "Don't include miscodings from Windows-1252" ) do
+      mapper.map_windows_1252 = false
+    end
+    opts.on( "--no-iso-8859-1",
+             "Don't include miscodings from ISO-8859-1" ) do
+      mapper.map_iso_8859_1 = false
+    end
+    opts.on( "--no-permutations",
+             "Don't include ISO/Windows permutations" ) do
+      mapper.map_permutations = false
+    end
+    opts.on_tail( "-t", "--table",
+                  "Display MojiBake Mapper table (UTF-8) and exit" ) do
+      puts mapper.table
+      exit 1
+    end
+    opts.on_tail( "-r", "--regex",
+                  "Display MojiBake Mapper regex (UTF-8) and exit" ) do
+      puts mapper.regexp.inspect
+      exit 1
+    end
+    opts.on_tail( "-h", "--help", "Show help and exit" ) do
+      puts opts
+      puts
+      puts( "Recover InputFile and writes to STDOUT." )
+      exit 1
+    end
+  end.parse!
+
+  input_file = ARGV.shift
+  if input_file
+    $stdout.write( mapper.recover( IO.read( input_file ).encode( 'UTF-8' ) ) )
+  end
+
+end
