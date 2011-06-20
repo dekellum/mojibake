@@ -1,4 +1,7 @@
+History.rdoc
 Manifest.txt
+README.rdoc
+Rakefile
 bin/mojibake
 lib/mojibake/base.rb
 lib/mojibake.rb

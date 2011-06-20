@@ -1,0 +1,55 @@
+# -*- coding: UTF-8 -*-
+= MojiBake
+
+* http://github.com/dekellum/mojibake
+
+== Description
+
+Mojibake occurs in English most frequently due to misinterpreting and
+bad-transcoding between Windows-1252, ISO-8859-1, and UTF-8. This
+module provides a mojibake sequence to recovered original character
+mapping table, and utility to recover mojibake’d text.
+
+Testing has been with English but other Latin based languages, where
+Windows-1252 is in the wild, should also benefit.
+
+== Dependencies
+
+Requires the String Encoding support of ruby 1.9+ (tested 1.9.2p180
+Linux) or jruby 1.6+ (tested 1.6.2, Linux).
+
+== Synopsis
+
+ gem install mojibake
+
+ require 'mojibake'
+ mapper = MojiBake::Mapper.new
+ mapper.recover( 'â€œquotedâ€�' ) #=> '“quoted”'
+
+Or via cli:
+
+ mojibake -h
+
+List the mojibake mapping table (output in UTF-8):
+
+ mojibake -t
+
+Recover from a text file:
+
+ mojibake input.txt
+
+== License
+
+Copyright (c) 2011 David Kellum
+
+Licensed under the Apache License, Version 2.0 (the "License"); you
+may not use this file except in compliance with the License.  You
+may obtain a copy of the License at:
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied.  See the License for the specific language governing
+permissions and limitations under the License.
