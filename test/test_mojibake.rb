@@ -29,14 +29,21 @@ require 'minitest/autorun'
 require 'mojibake'
 
 class TestMojiBake < MiniTest::Unit::TestCase
+  include MojiBake
 
   def setup
-    @mapper = MojiBake::Mapper.new
+    @mapper = Mapper.new
   end
 
   TEST_TREE = { "a" => { "b" => { "c" => {},
                                   "d" => {} } },
                 "d" => { "b" => { "f" => {} } } }
+
+  def test_init_options
+    assert_equal( true, Mapper.new.map_iso_8859_1 )
+    m = Mapper.new( :map_iso_8859_1 => false )
+    assert_equal( false, m.map_iso_8859_1 )
+  end
 
   def test_char_tree
     assert_equal( TEST_TREE,
