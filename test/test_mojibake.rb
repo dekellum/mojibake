@@ -65,7 +65,8 @@ class TestMojiBake < MiniTest::Unit::TestCase
 
   def test_simple_recover
     assert_equal( '[°]', @mapper.recover( '[Â°]' ) )
-    assert_equal( '“', @mapper.recover( 'â€œ' ) )
+    assert_equal( '“quoted”', @mapper.recover( 'â€œquotedâ€�' ) )
+    assert_equal( '“quoted”', @mapper.recover( 'âquotedâ€' ) )
   end
 
   def test_recursive_recover
