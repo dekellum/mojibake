@@ -31,13 +31,13 @@ module MojiBake
     # chars in English and probably most latin languages.
     HIGH_ORDER_CHARS =
       ( ( 0x80..0xFF ).to_a - [ 0x81, 0x8D, 0x8F, 0x90, 0x9D ] ).
-      map    { |i| i.chr( W252 ).encode( UTF8 ) }.
+      map { |i| i.chr( W252 ).encode( UTF8 ) }.
       sort
 
     # Additional Unicode characters of mojibake issue, like alt
-    # whitespace and BOM
+    # whitespace, C1 control characters, and BOMs.
     INTEREST_CHARS =
-      [ (0x0080..0x009F).to_a, # ISO,Unicode C1 control codes.
+      [ (0x0080..0x009F).to_a, # ISO/Unicode C1 control codes.
         0x00A0,                # NO-BREAK SPACE
         (0x2000..0x200B).to_a, # EN QUAD ... ZERO WIDTH SPACE
         0x2060,                # WORD JOINER
@@ -55,14 +55,13 @@ module MojiBake
     # Include ISO-8859-1 transcodes in map (default: true)
     attr_accessor :map_iso_8859_1
 
-    # Include perumutation between ISO-8859-1 and Windows-1252 in map
-    # This covers ambiguities of C1 control codes (default: true)
+    # Include permutations between ISO-8859-1 and Windows-1252
+    # (default: true).  This covers ambiguities of C1 control codes.
     attr_accessor :map_permutations
 
     def initialize( options = {} )
       @map_windows_1252 = true
       @map_iso_8859_1   = true
-      @map_high_order   = true
       @map_permutations = true
 
       options.map { |k,v| send( k.to_s + '=', v ) }
@@ -103,8 +102,7 @@ module MojiBake
       end
     end
 
-    # Return pretty formatted table formatting of hash (as array of
-    # lines)
+    # Return pretty table formatting of hash (array of lines)
     def table
       ( [ "Moji\tUNICODE  \tOrg\tCODE",
           "-----\t---- ---- ----\t-----\t----" ] +
@@ -116,14 +114,14 @@ module MojiBake
     # A Regexp that will match any of the mojibake sequences, as
     # found in hash.keys.
     def regexp
-      @regexp ||= Regexp.new( tree_flatten( char_tree( self.hash.keys ) ) )
+      @regexp ||= Regexp.new( tree_flatten( char_tree( hash.keys ) ) )
     end
 
     # Recover original characters from input using regexp, recursively.
     def recover( input, recursive = true )
       output = input.gsub( regexp ) { |moji| hash[moji] }
 
-      # Only recurse if requested and subsituted something (output
+      # Only recurse if requested and substituted something (output
       # shorter) in this run.
       if recursive && ( output.length < input.length )
         recover( output )
