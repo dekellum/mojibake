@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 = MojiBake
 
 * http://github.com/dekellum/mojibake
@@ -7,8 +7,8 @@
 
 Mojibake occurs in English most frequently due to misinterpreting and
 bad-transcoding between Windows-1252, ISO-8859-1, and UTF-8. This
-module provides a mojibake sequence to recovered original character
-mapping table, and utility to recover mojibake’d text.
+module provides a mojibake sequence to original character mapping
+table, and utility to recover mojibake’d text.
 
 Testing has been with English but other Latin based languages, where
 Windows-1252 is in the wild, should also benefit.

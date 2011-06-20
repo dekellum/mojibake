@@ -49,6 +49,10 @@ module MojiBake
       map { |c| c.chr( UTF8 ) }.
       sort
 
+    # Mojibake candidate characters in reverse; HIGH_ORDER_CHARS and
+    # lowest codepoints have highest precedence.
+    CANDIDATE_CHARS = ( HIGH_ORDER_CHARS + INTEREST_CHARS ).reverse
+
     # Include Windows-1252 transcodes in map (default: true)
     attr_accessor :map_windows_1252
 
@@ -66,10 +70,6 @@ module MojiBake
 
       options.map { |k,v| send( k.to_s + '=', v ) }
     end
-
-    # Mojibake candidate characters in reverse; HIGH_ORDER_CHARS and
-    # lowest codepoints have highest precedence.
-    CANDIDATE_CHARS = ( HIGH_ORDER_CHARS + INTEREST_CHARS ).reverse
 
     # Return Hash of mojibake UTF-8 2-3 character sequences to original
     # UTF-8 (recovered) characters
