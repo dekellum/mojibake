@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
 #.hashdot.args.pre = --1.9
 #.hashdot.profile += jruby-shortlived
 
@@ -47,7 +46,7 @@ module Script
       mapper.map_permutations = false
     end
     opts.on_tail( "-t", "--table",
-                  "Display MojiBake Mapper table (UTF-8) and exit" ) do
+                  "Write MojiBake Mapper table (UTF-8)" ) do
       puts mapper.table
       exit 1
     end

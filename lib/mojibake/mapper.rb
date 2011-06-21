@@ -104,11 +104,16 @@ module MojiBake
 
     # Return pretty table formatting of hash (array of lines)
     def table
-      ( [ "Moji\tUNICODE  \tOrg\tCODE",
-          "-----\t---- ---- ----\t-----\t----" ] +
-        hash.sort.map { |moji,c|
-          "[%s]\t%s\t[%s]\t%s" %
-            [ moji, codepoints_hex( moji ), c, codepoints_hex( c ) ] } )
+      lines = [ "# -*- coding: utf-8 -*- mojibake: #{MojiBake::VERSION}" ]
+      lines << regexp.inspect
+      lines << ""
+      lines << "Moji\tUNICODE  \tOrg\tCODE"
+      lines << "+----\t---- ---- ----\t-----\t---+"
+      lines += hash.sort.map do |moji,c|
+        "[%s]\t%s\t[%s]\t%s" %
+          [ moji, codepoints_hex( moji ), c, codepoints_hex( c ) ]
+      end
+      lines
     end
 
     # A Regexp that will match any of the mojibake sequences, as
