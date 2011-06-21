@@ -138,7 +138,7 @@ module MojiBake
     def char_tree( seqs )
       seqs.inject( {} ) do |h,seq|
         seq.chars.inject( h ) do |hs,c|
-          hs[c] ||= Hash.new { |hss,k| hss[k] = {} }
+          hs[c] ||= {}
         end
         h
       end
