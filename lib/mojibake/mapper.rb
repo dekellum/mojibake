@@ -34,20 +34,20 @@ module MojiBake
       map { |i| i.chr( W252 ).encode( UTF8 ) }.
       sort
 
-    # Additional Unicode characters of mojibake issue, like alt
+    # Additional Unicode codepoints of mojibake potential, like alt
     # whitespace, C1 control characters, and BOMs.
-    INTEREST_CHARS =
+    INTEREST_CODEPOINTS =
       [ (0x0080..0x009F).to_a, # ISO/Unicode C1 control codes.
         0x00A0,                # NO-BREAK SPACE
         (0x2000..0x200B).to_a, # EN QUAD ... ZERO WIDTH SPACE
         0x2060,                # WORD JOINER
         0xfeff,                # ZERO WIDTH SPACE, BYTE-ORDER-MARK (BOM)
         0xfffd,                # REPLACEMENT CHARACTER
-        0xfffe                 # UNASSIGNED, BAD BOM
-      ].
+        0xfffe ].              # UNASSIGNED, BAD BOM
       flatten.
-      map { |c| c.chr( UTF8 ) }.
       sort
+
+    INTEREST_CHARS = INTEREST_CODEPOINTS.map { |c| c.chr( UTF8 ) }
 
     # Mojibake candidate characters in reverse; HIGH_ORDER_CHARS and
     # lowest codepoints have highest precedence.
@@ -154,6 +154,15 @@ module MojiBake
     # Unicode hex dump of codepoints
     def codepoints_hex( s )
       s.codepoints.map { |i| sprintf( "%04X", i ) }.join( ' ' )
+    end
+
+    def regex_encode( c )
+      i = c.codepoints.next #only one
+      if INTEREST_CODEPOINTS.include?( i )
+        sprintf( '\u%04X', i )
+      else
+        Regexp.escape( c )
+      end
     end
 
   end

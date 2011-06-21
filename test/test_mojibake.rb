@@ -60,8 +60,12 @@ class TestMojiBake < MiniTest::Unit::TestCase
     assert_match( re, "abc" )
     assert_match( re, "abd" )
     assert_match( re, "dbf" )
+
     refute_match( re, "ab" )
     refute_match( re, "abf" )
+
+    assert_equal(  "xbf" , "abdbf".gsub( re, 'x' ) )
+    assert_equal(  "dbf" , "abdbf".gsub( re, 'd' ) )
   end
 
   def test_nomatch_recover
