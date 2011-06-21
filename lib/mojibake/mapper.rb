@@ -140,15 +140,28 @@ module MojiBake
     end
 
     def tree_flatten( tree )
-      tree.map { |k,v|
-        o = Regexp.escape( k )
+      cs = tree.sort.map do |k,v|
+        o = regex_encode( k )
         unless v.empty?
-          o << '(' unless v.length == 1
-          o << tree_flatten( v )
-          o << ')' unless v.length == 1
+          c = tree_flatten( v )
+          o << if c =~ /^\[.*\]$/ || v.length == 1
+                 c
+               else
+                 '(' + c + ')'
+               end
         end
-        o }.join( '|' ).force_encoding( "UTF-8" )
-      #FIXME: Join looses encoding so force, jruby bug?
+        o
+      end
+      if cs.find { |o| o =~ /[()|\[\]]/ }
+        cs.join( '|' ).force_encoding( "UTF-8" )
+        #FIXME: Join looses encoding so force, jruby bug?
+      else
+        if cs.length > 1
+          '[' + cs.inject(:+) + ']'
+        else
+          cs.first
+        end
+      end
     end
 
     # Unicode hex dump of codepoints

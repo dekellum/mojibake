@@ -51,7 +51,7 @@ class TestMojiBake < MiniTest::Unit::TestCase
   end
 
   def test_tree_flaten
-    assert_equal( "ab(c|d)|dbf",
+    assert_equal( "ab[cd]|dbf",
                   @mapper.tree_flatten( TEST_TREE ) )
   end
 
