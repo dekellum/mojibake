@@ -30,20 +30,21 @@ module MojiBake
     # RIGHT DOUBLE QUOTATION MARK. These are the most common problem
     # chars in English and probably most latin languages.
     HIGH_ORDER_CHARS =
-      ( ( 0x80..0xFF ).to_a - [ 0x81, 0x8D, 0x8F, 0x90, 0x9D ] ).
+      ( Array( 0x80..0xFF ) - [ 0x81, 0x8D, 0x8F, 0x90, 0x9D ] ).
       map { |i| i.chr( W252 ).encode( UTF8 ) }.
       sort
 
     # Additional Unicode codepoints of mojibake potential, like alt
     # whitespace, C1 control characters, and BOMs.
     INTEREST_CODEPOINTS =
-      [ (0x0080..0x009F).to_a, # ISO/Unicode C1 control codes.
-        0x00A0,                # NO-BREAK SPACE
-        (0x2000..0x200B).to_a, # EN QUAD ... ZERO WIDTH SPACE
-        0x2060,                # WORD JOINER
-        0xfeff,                # ZERO WIDTH SPACE, BYTE-ORDER-MARK (BOM)
-        0xfffd,                # REPLACEMENT CHARACTER
-        0xfffe ].              # UNASSIGNED, BAD BOM
+      [ 0x0080..0x009F, # ISO/Unicode C1 control codes.
+        0x00A0,         # NO-BREAK SPACE
+        0x2000..0x200B, # EN QUAD ... ZERO WIDTH SPACE
+        0x2060,         # WORD JOINER
+        0xfeff,         # ZERO WIDTH SPACE, BYTE-ORDER-MARK (BOM)
+        0xfffd,         # REPLACEMENT CHARACTER
+        0xfffe ].       # UNASSIGNED, BAD BOM
+      map { |i| Array( i ) }.
       flatten.
       sort
 
@@ -159,7 +160,7 @@ module MojiBake
       end
       if cs.find { |o| o =~ /[()|\[\]]/ }
         cs.join( '|' ).force_encoding( "UTF-8" )
-        #FIXME: Join looses encoding so force, jruby bug?
+        #FIXME: Fix, jruby join looses encoding: JRUBY-5639
       else
         if cs.length > 1
           '[' + cs.inject(:+) + ']'
