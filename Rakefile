@@ -15,6 +15,7 @@ t.specify do |h|
 
   h.testlib = :minitest
   h.extra_dev_deps += [ [ 'minitest', '>= 2.1', '< 2.4' ] ]
+  h.require_ruby_version( '>= 1.9' )
 
   h.url = 'http://github.com/dekellum/mojibake'
 end
