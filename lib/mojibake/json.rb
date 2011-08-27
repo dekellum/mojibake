@@ -25,7 +25,7 @@ module MojiBake
     def json_object
       { :mojibake => MojiBake::VERSION,
         :url => "https://github.com/dekellum/mojibake",
-        :regexp => regexp.to_s,
+        :regexp => regexp.inspect[1...-1],
         :moji => Hash[ hash.sort ] }
     end
 
