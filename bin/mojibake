@@ -46,8 +46,15 @@ module Script
       mapper.map_permutations = false
     end
     opts.on_tail( "-t", "--table",
-                  "Write MojiBake Mapper table (UTF-8)" ) do
+                  "Write MojiBake Mapper table (UTF-8) and exit" ) do
       puts mapper.table
+      exit 1
+    end
+    opts.on_tail( "-j", "--json",
+                  "Write MojiBake Mapper json (UTF-8) and exit" ) do
+      require 'rubygems'
+      require 'mojibake/json'
+      puts mapper.json
       exit 1
     end
     opts.on_tail( "-r", "--regex",
