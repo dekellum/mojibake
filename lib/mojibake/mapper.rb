@@ -159,8 +159,7 @@ module MojiBake
         o
       end
       if cs.find { |o| o =~ /[()|\[\]]/ }
-        cs.join( '|' ).force_encoding( "UTF-8" )
-        #FIXME: Fix, jruby join looses encoding: JRUBY-5639
+        cs.join( '|' )
       else
         if cs.length > 1
           '[' + cs.inject(:+) + ']'
