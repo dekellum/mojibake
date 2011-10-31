@@ -15,8 +15,10 @@ Windows-1252 is in the wild, should also benefit.
 
 == Dependencies
 
-Requires the String Encoding support of ruby 1.9+ (tested 1.9.2p180
-Linux) or jruby 1.6+ (tested 1.6.2, Linux).
+Requires the String Encoding support in ruby 1.9 as provided by:
+
+*  ruby 1.9.2+ (tested 1.9.2p180, Linux)
+* jruby 1.6.5+ (tested 1.6.5, Linux)
 
 == Synopsis
 
