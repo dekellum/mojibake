@@ -1,4 +1,9 @@
-=== 1.1.0 (TBD)
+=== 1.1.0 (2011-6-31)
+* Add table.json output support as more convenient language
+  independent format. Include default version (as well as table.txt)
+  as part of gem.
+* Add Ruby 1.8 support for Mapper.recover by using default included
+  table.json (avoids need for 1.9 encoding support.)
 
 === 1.0.0 (2011-6-21)
 * Initial release.
