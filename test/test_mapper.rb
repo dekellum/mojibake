@@ -28,44 +28,11 @@ require 'minitest/autorun'
 
 require 'mojibake'
 
-class TestMojiBake < MiniTest::Unit::TestCase
+class TestMapper < MiniTest::Unit::TestCase
   include MojiBake
 
   def setup
     @mapper = Mapper.new
-  end
-
-  TEST_TREE = { "a" => { "b" => { "c" => {},
-                                  "d" => {} } },
-                "d" => { "b" => { "f" => {} } } }
-
-  def test_init_options
-    assert_equal( true, Mapper.new.map_iso_8859_1 )
-    m = Mapper.new( :map_iso_8859_1 => false )
-    assert_equal( false, m.map_iso_8859_1 )
-  end
-
-  def test_char_tree
-    assert_equal( TEST_TREE,
-                  @mapper.char_tree( [ "abc", "abd", "dbf" ] ) )
-  end
-
-  def test_tree_flaten
-    assert_equal( "ab[cd]|dbf",
-                  @mapper.tree_flatten( TEST_TREE ) )
-  end
-
-  def test_regexp
-    re = Regexp.new( @mapper.tree_flatten( TEST_TREE ) )
-    assert_match( re, "abc" )
-    assert_match( re, "abd" )
-    assert_match( re, "dbf" )
-
-    refute_match( re, "ab" )
-    refute_match( re, "abf" )
-
-    assert_equal(  "xbf" , "abdbf".gsub( re, 'x' ) )
-    assert_equal(  "dbf" , "abdbf".gsub( re, 'd' ) )
   end
 
   def test_nomatch_recover

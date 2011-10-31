@@ -14,9 +14,38 @@
 # permissions and limitations under the License.
 #++
 
-if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) < 0
-  raise "Requires ruby ~> 1.9 for String.encode support"
-end
-
 require 'mojibake/base'
-require 'mojibake/mapper'
+
+require 'mojibake/json'
+
+module MojiBake
+
+  # Supports recovering Mojibake characters to the original text.
+  class Mapper
+    include JSONSupport
+
+    if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) >= 0
+      require 'mojibake/encoding'
+      include EncodingSupport
+    end
+
+    def initialize( opts = {} )
+      super()
+      opts.map { |k,v| send( k.to_s + '=', v ) }
+    end
+
+    # Recover original characters from input using regexp, recursively.
+    def recover( input, recursive = true )
+      output = input.gsub( regexp ) { |moji| hash[moji] }
+
+      # Only recurse if requested and substituted something (output
+      # shorter) in this run.
+      if recursive && ( output.length < input.length )
+        recover( output )
+      else
+        output
+      end
+    end
+
+  end
+end

@@ -72,7 +72,8 @@ module Script
 
   input_file = ARGV.shift
   if input_file
-    $stdout.write( mapper.recover( IO.read( input_file ).encode( 'UTF-8' ) ) )
+    data = IO.read( input_file )
+    $stdout.write( mapper.recover( data ) )
   end
 
 end

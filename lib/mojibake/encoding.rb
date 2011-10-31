@@ -16,9 +16,9 @@
 
 module MojiBake
 
-  # Creates a Map from mojibake sequences to recovered/original
-  # characters.
-  class Mapper
+  # Mixin for the actual (ruby 1.9 backed) encoding support to define
+  # the mojibake mapping table and regex.
+  module EncodingSupport
 
     W252 = Encoding::WINDOWS_1252
     ISO8 = Encoding::ISO_8859_1
@@ -64,12 +64,11 @@ module MojiBake
     # (default: true).  This covers ambiguities of C1 control codes.
     attr_accessor :map_permutations
 
-    def initialize( options = {} )
+    def initialize
+      super
       @map_windows_1252 = true
       @map_iso_8859_1   = true
       @map_permutations = true
-
-      options.map { |k,v| send( k.to_s + '=', v ) }
     end
 
     # Return Hash of mojibake UTF-8 2-3 character sequences to original
@@ -121,19 +120,6 @@ module MojiBake
     # found in hash.keys.
     def regexp
       @regexp ||= Regexp.new( tree_flatten( char_tree( hash.keys ) ) )
-    end
-
-    # Recover original characters from input using regexp, recursively.
-    def recover( input, recursive = true )
-      output = input.gsub( regexp ) { |moji| hash[moji] }
-
-      # Only recurse if requested and substituted something (output
-      # shorter) in this run.
-      if recursive && ( output.length < input.length )
-        recover( output )
-      else
-        output
-      end
     end
 
     def char_tree( seqs )
