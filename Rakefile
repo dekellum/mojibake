@@ -14,8 +14,8 @@ t.specify do |h|
   h.developer( 'David Kellum', 'dek-oss@gravitext.com' )
 
   h.testlib = :minitest
-  h.extra_dev_deps += [ [ 'minitest', '>= 2.1', '< 2.4' ],
-                        [ 'json',     '~> 1.5.3' ] ]
+  h.extra_dev_deps += [ [ 'minitest', '~> 2.3'   ],
+                        [ 'json',     '~> 1.6.1' ] ]
   h.require_ruby_version( '>= 1.9' )
 
   h.url = 'http://github.com/dekellum/mojibake'
@@ -35,3 +35,12 @@ task :tag  => [ :check_history_version, :check_history_date ]
 task :push => [ :check_history_version, :check_history_date ]
 
 t.define_tasks
+
+desc "(Re-)generate config output files (requires 1.9)"
+task :generate_config do
+  require 'mojibake/mapper'
+  require 'mojibake/json'
+  mapper = MojiBake::Mapper.new
+  open( "config/table.txt",  'w' ) { |fout| fout.puts( mapper.table ) }
+  open( "config/table.json", 'w' ) { |fout| fout.puts( mapper.json  ) }
+end
