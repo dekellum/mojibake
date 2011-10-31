@@ -15,10 +15,14 @@ Windows-1252 is in the wild, should also benefit.
 
 == Dependencies
 
-Requires the String Encoding support in ruby 1.9 as provided by:
+Mojibake mappings generation requires the String encoding support in
+ruby 1.9 as provided by:
 
-*  ruby 1.9.2+ (tested 1.9.2p180, Linux)
+*  ruby 1.9.2+ (tested 1.9.2p290, Linux)
 * jruby 1.6.5+ (tested 1.6.5, Linux)
+
+Recovery of text with default settings is supported by using the
+pre-generated table.json when in ruby 1.8 mode.
 
 == Synopsis
 
