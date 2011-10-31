@@ -24,8 +24,8 @@ module MojiBake
     # table as self contained json-ready Hash
     def json_object
 
-      # Also use unicode excape for the "interesting" subset of moji
-      # mappings.
+      # Also use unicode escape for the interesting (effectively,
+      # non-printable) subset of moji mappings.
       moji = hash.sort.map do |kv|
         kv.map do |s|
           s.codepoints.inject( '' ) do |r,i|
@@ -47,10 +47,12 @@ module MojiBake
     # Pretty formatted JSON serialized String for json_object
     def json
       # Generate and replace what become double escaped '\\u' UNICODE
-      # escapes with '\u' escapes. This is a hack but is reasonably
-      # safe given that 'u' isn't normally escaped.  The alterantive
-      # would be to hack JSON package or do the JSON formatting
-      # ourselves.
+      # escapes with single '\u' escapes. This is a hack but is
+      # reasonably safe given that 'u' isn't normally escaped.  The
+      # alterantive would be to hack JSON package or do the JSON
+      # formatting ourselves.  Ideally JSON package would support
+      # serialization using unicode escapes for the non-printable,
+      # non-friendly chars. As of 1.6.1 it doesn't.
       JSON.pretty_generate( json_object ).gsub( /\\\\u/, '\u' )
     end
 
