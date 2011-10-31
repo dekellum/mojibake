@@ -14,8 +14,8 @@ t.specify do |h|
   h.developer( 'David Kellum', 'dek-oss@gravitext.com' )
 
   h.testlib = :minitest
-  h.extra_dev_deps += [ [ 'minitest', '>= 2.1', '< 2.4' ],
-                        [ 'json',     '~> 1.5.3' ] ]
+  h.extra_dev_deps += [ [ 'minitest', '~> 2.3'   ],
+                        [ 'json',     '~> 1.6.1' ] ]
   h.require_ruby_version( '>= 1.9' )
 
   h.url = 'http://github.com/dekellum/mojibake'
