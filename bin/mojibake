@@ -20,6 +20,8 @@
 
 $LOAD_PATH.unshift File.join( File.dirname( __FILE__ ), "..", "lib" )
 
+require 'rubygems'
+
 require 'mojibake'
 require 'optparse'
 
@@ -33,30 +35,36 @@ module Script
       puts "mojibake: #{MojiBake::VERSION}"
       exit 1
     end
-    opts.on( "--no-windows-1252",
-             "Don't include miscodings from Windows-1252" ) do
-      mapper.map_windows_1252 = false
+
+    if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) >= 0
+
+      opts.on( "--no-windows-1252",
+               "Don't include miscodings from Windows-1252" ) do
+        mapper.map_windows_1252 = false
+      end
+      opts.on( "--no-iso-8859-1",
+               "Don't include miscodings from ISO-8859-1" ) do
+        mapper.map_iso_8859_1 = false
+      end
+      opts.on( "--no-permutations",
+               "Don't include ISO/Windows permutations" ) do
+        mapper.map_permutations = false
+      end
+      opts.on_tail( "-t", "--table",
+                    "Write MojiBake Mapper table (UTF-8) and exit" ) do
+        puts mapper.table
+        exit 1
+      end
+      opts.on_tail( "-j", "--json",
+                    "Write MojiBake Mapper json (UTF-8) and exit" ) do
+        require 'rubygems'
+        require 'mojibake/json'
+        puts mapper.json
+        exit 1
+      end
+
     end
-    opts.on( "--no-iso-8859-1",
-             "Don't include miscodings from ISO-8859-1" ) do
-      mapper.map_iso_8859_1 = false
-    end
-    opts.on( "--no-permutations",
-             "Don't include ISO/Windows permutations" ) do
-      mapper.map_permutations = false
-    end
-    opts.on_tail( "-t", "--table",
-                  "Write MojiBake Mapper table (UTF-8) and exit" ) do
-      puts mapper.table
-      exit 1
-    end
-    opts.on_tail( "-j", "--json",
-                  "Write MojiBake Mapper json (UTF-8) and exit" ) do
-      require 'rubygems'
-      require 'mojibake/json'
-      puts mapper.json
-      exit 1
-    end
+
     opts.on_tail( "-r", "--regex",
                   "Display MojiBake Mapper regex (UTF-8) and exit" ) do
       puts mapper.regexp.inspect
@@ -72,7 +80,8 @@ module Script
 
   input_file = ARGV.shift
   if input_file
-    $stdout.write( mapper.recover( IO.read( input_file ).encode( 'UTF-8' ) ) )
+    data = IO.read( input_file )
+    $stdout.write( mapper.recover( data ) )
   end
 
 end

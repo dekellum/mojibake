@@ -7,7 +7,8 @@ config/table.json
 config/table.txt
 lib/mojibake/base.rb
 lib/mojibake.rb
+lib/mojibake/encoding.rb
 lib/mojibake/json.rb
-lib/mojibake/mapper.rb
 test/test.txt
-test/test_mojibake.rb
+test/test_encoding.rb
+test/test_mapper.rb
