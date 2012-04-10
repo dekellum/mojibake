@@ -19,10 +19,9 @@
 # permissions and limitations under the License.
 #++
 
-ldir = File.join( File.dirname( __FILE__ ), "..", "lib" )
-$LOAD_PATH.unshift( ldir ) unless $LOAD_PATH.include?( ldir )
+# require 'rubygems'
+# require 'bundler/setup'
 
-require 'rubygems'
 require 'minitest/unit'
 require 'minitest/autorun'
 
