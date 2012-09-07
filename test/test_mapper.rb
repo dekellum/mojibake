@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-#.hashdot.args.pre = --1.9
 #.hashdot.profile += jruby-shortlived
 
 #--
@@ -19,10 +18,9 @@
 # permissions and limitations under the License.
 #++
 
-ldir = File.join( File.dirname( __FILE__ ), "..", "lib" )
-$LOAD_PATH.unshift( ldir ) unless $LOAD_PATH.include?( ldir )
-
 require 'rubygems'
+require 'bundler/setup'
+
 require 'minitest/unit'
 require 'minitest/autorun'
 
