@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-#.hashdot.args.pre = --1.9
 #.hashdot.profile += jruby-shortlived
 
 #--
@@ -19,8 +18,8 @@
 # permissions and limitations under the License.
 #++
 
-# require 'rubygems'
-# require 'bundler/setup'
+require 'rubygems'
+require 'bundler/setup'
 
 require 'minitest/unit'
 require 'minitest/autorun'
