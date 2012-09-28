@@ -1,5 +1,12 @@
 # -*- ruby -*-
 
+# Bizarre workaround for: JRUBY-6910
+if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) >= 0
+  w252 = Encoding::WINDOWS_1252
+  utf8 = Encoding::UTF_8
+  0x201C.chr( utf8 ).force_encoding( w252 ).encode( utf8 )
+end
+
 require 'rubygems'
 require 'bundler/setup'
 require 'rjack-tarpit'
