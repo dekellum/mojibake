@@ -10,6 +10,6 @@ RJack::TarPit.specify do |s|
 
   s.add_developer( 'David Kellum', 'dek-oss@gravitext.com' )
 
-  s.depend 'json',            '~> 1.6.4'
-  s.depend 'minitest',        '~> 2.10',       :dev
+  s.depend 'json',            '~> 1.7.5'
+  s.depend 'minitest',        '~> 3.2',       :dev
 end
