@@ -38,8 +38,13 @@ module MojiBake
     end
 
     def regexp
-      # Note use of Unicode mode for ruby 1.8's
-      @regexp ||= Regexp.new( config[ 'regexp' ], 0, 'U' )
+      @regexp ||= create_regexp
+    end
+
+    def create_regexp
+      # Use (U)nicode mode on ruby 1.8 only
+      lang = ( ruby_version_a <=> [1,9] ) >= 0 ? nil : 'U'
+      Regexp.new( config[ 'regexp' ], 0, lang )
     end
 
     # table as self contained json-ready Hash
