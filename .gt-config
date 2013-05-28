@@ -2,11 +2,14 @@
 
 Gravitext::DevTools.configure do |c|
 
-  c.header do |h|
+  c.setup_header do |h|
     h.holder = "David Kellum"
     h.inception = 2011
     h.license = :apache
-    h.exclusions += %w[ test/test.txt config/* ]
+    h.exclusions += %w[ test/test.txt config/* .travis.yml ]
   end
 
+  c.setup_manifest do |m|
+    m.exclusions += %w[ .travis.yml ]
+  end
 end
