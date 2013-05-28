@@ -20,6 +20,7 @@ require 'json'
 module MojiBake
 
   module JSONSupport
+    include VersionSupport
 
     JSON_CONFIG = File.join( File.dirname( __FILE__ ),
                              '..', '..', 'config', 'table.json' )

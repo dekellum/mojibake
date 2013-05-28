@@ -16,4 +16,18 @@
 
 module MojiBake
   VERSION = "1.1.1"
+
+  module VersionSupport
+    def ruby_version_a
+      ver_to_a( RUBY_VERSION )
+    end
+
+    def jruby_version_a
+      ver_to_a( JRUBY_VERSION ) if defined?( JRUBY_VERSION )
+    end
+
+    def ver_to_a( ver )
+      ver.split( '.' ).map { |d| d.to_i }
+    end
+  end
 end
