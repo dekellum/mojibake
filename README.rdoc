@@ -2,6 +2,7 @@
 = MojiBake
 
 * http://github.com/dekellum/mojibake
+* {<img src="https://travis-ci.org/dekellum/mojibake.png" />}[https://travis-ci.org/dekellum/mojibake]
 
 == Description
 
