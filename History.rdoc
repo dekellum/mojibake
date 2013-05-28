@@ -1,4 +1,12 @@
-=== 1.1.1 (TBD)
+=== 1.1.1 (2013-5-28)
+* Fix Ruby 2.0.0 compatibility (#3, Maciej Hitsu Kowalski)
+* Drop EncodingSupport for jruby 1.7.x, as 1.7.4 continues to exhibit
+  Unicode conformance bugs vs MRI and Rubinius. Note that
+  table.json config backed recovery still works on jruby 1.7.x.
+* Avoid warning by not using 'U' lang on 1.9 Regexp.new.
+* Upgrade to tarpit ~> 2.0, bundler Gemfile, gemspec.
+* Consolidate (j)ruby version checks to VersionSupport and mojibake.rb.
+* Add Travis CI setup and add increased test findings to README.
 
 === 1.1.0 (2011-10-30)
 * Add table.json output support as more convenient language
