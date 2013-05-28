@@ -1,3 +1,5 @@
+=== 1.1.1 (TBD)
+
 === 1.1.0 (2011-10-30)
 * Add table.json output support as more convenient language
   independent format. Include default version (as well as table.txt)
