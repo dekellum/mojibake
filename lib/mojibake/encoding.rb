@@ -161,7 +161,7 @@ module MojiBake
     end
 
     def regex_encode( c )
-      i = c.codepoints.next #only one
+      i = c.each_codepoint.next #only one
       if INTEREST_CODEPOINTS.include?( i )
         sprintf( '\u%04X', i )
       else
