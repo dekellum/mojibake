@@ -36,7 +36,7 @@ module Script
       exit 1
     end
 
-    if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) >= 0
+    if defined?( mapper.char_tree )
 
       opts.on( "--no-windows-1252",
                "Don't include miscodings from Windows-1252" ) do

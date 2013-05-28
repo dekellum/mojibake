@@ -22,9 +22,13 @@ module MojiBake
 
   # Supports recovering Mojibake characters to the original text.
   class Mapper
+    extend VersionSupport
     include JSONSupport
 
-    if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) >= 0
+    if ( ruby_version_a <=> [1,9] ) >= 0 &&
+        ( !jruby_version_a ||
+          ( ( ( jruby_version_a <=> [1,6,5] ) >= 0 ) &&
+            ( ( jruby_version_a <=> [1,7]   )  < 0 ) ) )
       require 'mojibake/encoding'
       include EncodingSupport
     end

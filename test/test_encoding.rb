@@ -29,16 +29,14 @@ require 'mojibake'
 class TestEncoding < MiniTest::Unit::TestCase
   include MojiBake
 
-  def setup
-    @mapper = Mapper.new
-  end
+  MAPPER = Mapper.new
 
   TEST_TREE = { "a" => { "b" => { "c" => {},
                                   "d" => {} } },
                 "d" => { "b" => { "f" => {} } } }
 
   # These only test with Ruby 1.9 support
-  if ( RUBY_VERSION.split( '.' ).map { |d| d.to_i } <=> [ 1, 9 ] ) >= 0
+  if defined?( MAPPER.char_tree )
 
     def test_init_options
       assert_equal( true, Mapper.new.map_iso_8859_1 )
@@ -48,16 +46,16 @@ class TestEncoding < MiniTest::Unit::TestCase
 
     def test_char_tree
       assert_equal( TEST_TREE,
-                    @mapper.char_tree( [ "abc", "abd", "dbf" ] ) )
+                    MAPPER.char_tree( [ "abc", "abd", "dbf" ] ) )
     end
 
     def test_tree_flaten
       assert_equal( "ab[cd]|dbf",
-                    @mapper.tree_flatten( TEST_TREE ) )
+                    MAPPER.tree_flatten( TEST_TREE ) )
     end
 
     def test_regexp
-      re = Regexp.new( @mapper.tree_flatten( TEST_TREE ) )
+      re = Regexp.new( MAPPER.tree_flatten( TEST_TREE ) )
       assert_match( re, "abc" )
       assert_match( re, "abd" )
       assert_match( re, "dbf" )
