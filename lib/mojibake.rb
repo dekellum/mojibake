@@ -28,7 +28,8 @@ module MojiBake
     if ( ruby_version_a <=> [1,9] ) >= 0 &&
         ( !jruby_version_a ||
           ( ( ( jruby_version_a <=> [1,6,5] ) >= 0 ) &&
-            ( ( jruby_version_a <=> [1,7]   )  < 0 ) ) )
+            ( ( jruby_version_a <=> [1,7]   ) <  0 ) ) ||
+          (   ( jruby_version_a <=> [1,7,4] ) >  0 ) )
       require 'mojibake/encoding'
       include EncodingSupport
     end
