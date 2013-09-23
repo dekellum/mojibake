@@ -18,13 +18,14 @@ Windows-1252 is in the wild, should also benefit.
 Mojibake mappings generation requires the String encoding support in
 ruby 1.9 as provided by:
 
-*  ruby >= 1.9.2 (tested 1.9.2p290, 1.9.3p392, 2.0.0p0 Linux)
-* jruby ~> 1.6.5 (tested 1.6.5, 1.6.8, Linux)
+*  ruby >= 1.9.2 (tested 1.9.2p290, 1.9.3p392, 2.0.0p247 Linux)
+* jruby ~> 1.6.5 or ~> 1.7.5 (tested 1.6.8, 1.7.5 Linux)
 * rubinius >= 2.0.0 (tested via Travis CI)
 
-Recovery of text with default settings is supported by using the
-pre-generated table.json when in ruby 1.8 mode, or for jruby 1.7.x
-(with contains bugs vs MRI ruby 1.9.x, 2.0.x behavior).
+Note: jruby versions 1.7.0-1.7.4 have various encoding support
+regressions. Recovery of text with default settings is supported by
+using the pre-generated table.json when in ruby 1.8 mode, or for other
+jruby versions.
 
 == Synopsis
 
