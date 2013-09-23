@@ -11,5 +11,5 @@ rvm:
   - jruby-1.6.8 --1.9
   - jruby-18mode
   - jruby-19mode
-  - jruby-head
+  - jruby-head-d_2013_09_22
 script: "bundle exec rake test"
