@@ -15,7 +15,7 @@
 #++
 
 module MojiBake
-  VERSION = "1.1.1"
+  VERSION = "1.1.2"
 
   module VersionSupport
     def ruby_version_a
