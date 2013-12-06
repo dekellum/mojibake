@@ -1,4 +1,4 @@
-=== 1.1.2 (TBD)
+=== 1.1.2 (2013-12-6)
 * Re-enable EncodingSupport for jruby 1.7.5 where all impacting 1.7.x
   regressions (vs. 1.6.8) have finally been fixed.
 * Update test findings in README.
